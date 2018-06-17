@@ -56,10 +56,7 @@ public class Evento implements Serializable {
             return false;
         }
         final Evento other = (Evento) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
 
     public Integer getId() {
