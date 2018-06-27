@@ -3,11 +3,10 @@ package com.grules.soap.services;
 import com.grules.lib.Aluno;
 import com.grules.lib.Apresentacao;
 import com.grules.lib.Evento;
+import com.grules.lib.RelatorioApresentacao;
 import com.grules.services.dao.AlunoDAO;
 import com.grules.services.dao.ApresentacaoDAO;
 import com.grules.services.dao.EventoDAO;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import javax.jws.WebService;
 import javax.inject.Inject;
@@ -89,9 +88,10 @@ public class GrulesWebService {
         return loadAll;
     }
 
-//    public HashMap<Date, List<Apresentacao>> loadApresentacaoPorDia() {
-//        return apresentacaoDAO.apresentacaoPorDia();
-//    }
+    public List<RelatorioApresentacao> loadApresentacaoPorDia(Integer id) {
+        List<RelatorioApresentacao> result = apresentacaoDAO.loadApresentacoesPorDia(id);
+        return result;
+    }
 
     public List<Aluno> loadAllAluno() {
         List<Aluno> loadAll = alunoDAO.loadAll();

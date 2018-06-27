@@ -1,9 +1,10 @@
 package com.grules.services.dao;
 
 import com.grules.lib.Apresentacao;
+import com.grules.lib.RelatorioApresentacao;
 import com.grules.services.util.Util;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -42,19 +43,22 @@ public class ApresentacaoDAO {
         return query.getResultList();
     }
 
-    public HashMap<Date, List<Apresentacao>> apresentacaoPorDia() {
-        HashMap<Date, List<Apresentacao>> result = new HashMap<>();
-        TypedQuery qa = entityManager.createQuery("SELECT DISTINCT(a.dataHora) FROM Apresentacao a", Apresentacao.class);
+    public List<RelatorioApresentacao> loadApresentacoesPorDia(Integer eventoId) {
+        List<RelatorioApresentacao> result = new ArrayList<>();
+        TypedQuery qa = entityManager.createQuery("SELECT DISTINCT(a.dataHora) FROM Apresentacao a WHERE a.evento.id = :eventoId", Apresentacao.class);
+        qa.setParameter("eventoId", eventoId);
         List<Date> datas = qa.getResultList();
         for (Date d : datas) {
-            result.put(d, loadByData(d));
+            result.add(new RelatorioApresentacao(d, loadByData(d, eventoId)));
         }
         return result;
     }
 
-    public List<Apresentacao> loadByData(Date date) {
-        TypedQuery query = entityManager.createQuery("SELECT ap FROM Apresentacao ap WHERE ap.dataHora = :date", Apresentacao.class);
+    public List<Apresentacao> loadByData(Date date, Integer eventoId) {
+        TypedQuery query = entityManager.createQuery("SELECT ap FROM Apresentacao ap WHERE ap.dataHora = :date AND ap.evento.id = :eventoId", Apresentacao.class);
+        query.setParameter("eventoId", eventoId);
         query.setParameter("date", date);
         return query.getResultList();
     }
+
 }
