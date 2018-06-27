@@ -41,7 +41,7 @@ public class Apresentacao implements Serializable {
     private Evento evento;
     
     @OneToMany
-    @JoinTable(name = "alunos_evento",
+    @JoinTable(name = "alunos_apresentacao",
             joinColumns = {@JoinColumn(name = "apresentacao_id", referencedColumnName = "apresentacao_id")},
             inverseJoinColumns = @JoinColumn(name = "aluno_id", referencedColumnName = "aluno_id"))
     private List<Aluno> alunos;
@@ -68,10 +68,7 @@ public class Apresentacao implements Serializable {
             return false;
         }
         final Apresentacao other = (Apresentacao) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
 
     public String getTitulo() {
