@@ -3,8 +3,10 @@ package com.grules.services.dao;
 import com.grules.lib.Aluno;
 import com.grules.services.util.Util;
 import java.util.List;
+import java.util.Objects;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -38,6 +40,28 @@ public class AlunoDAO {
     public List<Aluno> loadAll() {
         TypedQuery query = entityManager.createQuery("SELECT a FROM Aluno a", Aluno.class);
         return query.getResultList();
+    }
+    
+    public Aluno loadByMatricula(String matricula) {
+        TypedQuery query = entityManager.createQuery("SELECT a FROM Aluno a WHERE a.matricula = :matricula", Aluno.class);
+        query.setParameter("matricula", matricula);
+        try{
+            return (Aluno) query.getSingleResult();
+        }catch (NoResultException ex){
+            return null;
+        }
+    }
+    
+    public boolean verificaMatricula(String matricula){
+        TypedQuery query = entityManager.createQuery("SELECT a FROM Aluno a WHERE a.matricula = :matricula", Aluno.class);
+        query.setParameter("matricula", matricula);
+        
+        try{
+            Objects.nonNull(query.getSingleResult());
+            return true;
+        }catch (NoResultException ex){
+            return false;
+        }
     }
        
 }

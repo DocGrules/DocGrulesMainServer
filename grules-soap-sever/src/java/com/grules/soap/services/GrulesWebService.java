@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import javax.jws.WebService;
 import javax.inject.Inject;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
 
 /**
  *
@@ -27,75 +29,101 @@ public class GrulesWebService {
     
     @Inject
     private AlunoDAO alunoDAO;
-
-    public void saveEvento(Evento evento) {
+    
+    @WebMethod(operationName = "saveEvento")
+    public void saveEvento(@WebParam(name = "evento") Evento evento) {
         eventoDAO.save(evento);
     }
-
-    public void saveApresentacao(Apresentacao apresentacao) {
-        apresentacaoDAO.save(apresentacao);
-    }
-
-    public void saveAluno(Aluno aluno) {
-        alunoDAO.save(aluno);
-    }
-
-    public void updateEvento(Evento evento) {
+    
+    @WebMethod(operationName = "updateEvento")
+    public void updateEvento(@WebParam(name = "evento") Evento evento) {
         eventoDAO.update(evento);
     }
-
-    public void updateApresentacao(Apresentacao apresentacao) {
-        apresentacaoDAO.update(apresentacao);
-    }
-
-    public void updateAluno(Aluno aluno) {
-        alunoDAO.update(aluno);
-    }
-
-    public void deleteEvento(Evento evento) {
+    
+    @WebMethod(operationName = "deleteEvento")
+    public void deleteEvento(@WebParam(name = "evento") Evento evento) {
         eventoDAO.delete(evento);
     }
-
-    public void deleteApresentacao(Apresentacao apresentacao) {
-        apresentacaoDAO.delete(apresentacao);
-    }
-
-    public void deleteAluno(Aluno aluno) {
-        alunoDAO.delete(aluno);
-    }
-
-    public Evento findEvento(Object id) {
+    
+    @WebMethod(operationName = "findEvento")
+    public Evento findEvento(@WebParam(name = "id") Object id) {
         Evento find = eventoDAO.find(id);
         return find;
     }
-
-    public Apresentacao findApresentacao(Object id) {
-        Apresentacao find = apresentacaoDAO.find(id);
-        return find;
-    }
-
-    public Aluno findAluno(Object id) {
-        Aluno find = alunoDAO.find(id);
-        return find;
-    }
-
+    
+    @WebMethod(operationName = "loadAllEvento")
     public List<Evento> loadAllEvento() {
         List<Evento> loadAll = eventoDAO.loadAll();
         return loadAll;
+    } 
+    
+    @WebMethod(operationName = "loadAllSemestre")    
+    public List<String> loadAllSemestre() {
+        List<String> loadAll = eventoDAO.loadAllSemestre();
+        return loadAll;
     }
-
+    
+    @WebMethod(operationName = "saveApresentacao")
+    public void saveApresentacao(@WebParam(name = "apresentacao") Apresentacao apresentacao) {
+        apresentacaoDAO.save(apresentacao);
+    }
+    
+    @WebMethod(operationName = "updateApresentacao")
+    public void updateApresentacao(@WebParam(name = "apresentacao") Apresentacao apresentacao) {
+        apresentacaoDAO.update(apresentacao);
+    }  
+    
+    @WebMethod(operationName = "deleteApresentacao")
+    public void deleteApresentacao(@WebParam(name = "apresentacao") Apresentacao apresentacao) {
+        apresentacaoDAO.delete(apresentacao);
+    }
+    
+    @WebMethod(operationName = "findApresentacao")
+    public Apresentacao findApresentacao(@WebParam(name = "id") Object id) {
+        Apresentacao find = apresentacaoDAO.find(id);
+        return find;
+    }  
+    
+    @WebMethod(operationName = "loadAllApresentacao")
     public List<Apresentacao> loadAllApresentacao() {
         List<Apresentacao> loadAll = apresentacaoDAO.loadAll();
         return loadAll;
+    }
+    
+    @WebMethod(operationName = "saveAluno")
+    public void saveAluno(@WebParam(name = "aluno") Aluno aluno) {
+        alunoDAO.save(aluno);
+    }
+
+    @WebMethod(operationName = "updateAluno")
+    public void updateAluno(@WebParam(name = "aluno") Aluno aluno) {
+        alunoDAO.update(aluno);
+    }
+
+    @WebMethod(operationName = "deleteAluno")
+    public void deleteAluno(@WebParam(name = "aluno") Aluno aluno) {
+        alunoDAO.delete(aluno);
+    }
+    
+    @WebMethod(operationName = "findAluno")
+    public Aluno findAluno(@WebParam(name = "id") Object id) {
+        Aluno find = alunoDAO.find(id);
+        return find;
     }
 
 //    public HashMap<Date, List<Apresentacao>> loadApresentacaoPorDia() {
 //        return apresentacaoDAO.apresentacaoPorDia();
 //    }
 
+    @WebMethod(operationName = "loadAllAluno")
     public List<Aluno> loadAllAluno() {
         List<Aluno> loadAll = alunoDAO.loadAll();
         return loadAll;
     }
-
+    
+    @WebMethod(operationName = "verificaMatricula")
+    public boolean verificaMatricula(@WebParam(name = "matricula") String matricula){
+        boolean verificar = alunoDAO.verificaMatricula(matricula);
+        return verificar;
+    }
 }

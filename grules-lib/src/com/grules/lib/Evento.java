@@ -22,7 +22,7 @@ public class Evento implements Serializable {
     @Column(name = "evento_id")
     private Integer id;
 
-    @Column(length = 7, nullable = false)
+    @Column(length = 7, nullable = false, unique = true)
     private String semestre;
 
     @Column(length = 50, nullable = false)

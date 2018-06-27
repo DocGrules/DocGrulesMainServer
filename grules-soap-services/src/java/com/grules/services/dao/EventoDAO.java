@@ -1,8 +1,10 @@
 package com.grules.services.dao;
 
+import com.grules.lib.Aluno;
 import com.grules.lib.Evento;
 import com.grules.services.util.Util;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -11,6 +13,12 @@ import javax.persistence.TypedQuery;
 
 @Stateless
 public class EventoDAO {
+
+    @EJB
+    private AlunoDAO alunoDAO;
+
+    @EJB
+    private EventoDAO eventoDAO;
 
     @PersistenceContext(unitName = Util.persistenceUnit)
     EntityManager entityManager;
@@ -50,4 +58,18 @@ public class EventoDAO {
             return null;
         }
     }
+    
+    public List<String> loadAllSemestre() {
+        TypedQuery query = entityManager.createQuery("SELECT e.semestre FROM Evento e", Evento.class);
+        return query.getResultList();
+    }
+    
+ //   public void registrarChamada(String semestre, String matricula) {
+ //       
+ //       Evento evento = eventoDAO.loadBySemestre(semestre);
+ //       
+ //       Aluno aluno = alunoDAO.loadByMatricula(matricula);
+ //           
+ //       
+ //   }
 }
