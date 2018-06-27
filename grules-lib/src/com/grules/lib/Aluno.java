@@ -53,7 +53,10 @@ public class Aluno implements Serializable {
             return false;
         }
         final Aluno other = (Aluno) obj;
-        return Objects.equals(this.id, other.id);
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 
     public String getNome() {

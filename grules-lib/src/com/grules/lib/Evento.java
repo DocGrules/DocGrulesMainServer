@@ -12,9 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @TableGenerator(name = "evento_id", initialValue = 1, allocationSize = 1)
+@XmlRootElement
 public class Evento implements Serializable {
 
     @Id
@@ -56,7 +59,10 @@ public class Evento implements Serializable {
             return false;
         }
         final Evento other = (Evento) obj;
-        return Objects.equals(this.id, other.id);
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 
     public Integer getId() {
@@ -83,6 +89,7 @@ public class Evento implements Serializable {
         this.tema = tema;
     }
 
+    @XmlTransient
     public List<Aluno> getAlunos() {
         return alunos;
     }

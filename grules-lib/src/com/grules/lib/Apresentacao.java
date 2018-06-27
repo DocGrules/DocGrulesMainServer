@@ -68,7 +68,10 @@ public class Apresentacao implements Serializable {
             return false;
         }
         final Apresentacao other = (Apresentacao) obj;
-        return Objects.equals(this.id, other.id);
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 
     public String getTitulo() {
