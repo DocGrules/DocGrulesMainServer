@@ -88,13 +88,13 @@ public class GrulesWebService {
         return loadAll;
     }
 
-    public List<Apresentacao> loadApresentacaoPorDia(Date data, Integer eventoId) {
+    public List<Apresentacao> loadApresentacaoPorDia(String data, Integer eventoId) {
         List<Apresentacao> result = apresentacaoDAO.loadByData(data, eventoId);
         return result;
     }
     
-    public List<Date> loadDistinctDatasPorApresentacao(Integer id) {
-        List<Date> result = apresentacaoDAO.loadDistinctDatasPorApresentacao(id);
+    public List<String> loadDistinctDatasPorApresentacao(Integer id) {
+        List<String> result = apresentacaoDAO.loadDistinctDatasPorApresentacao(id);
         return result;
     }
 

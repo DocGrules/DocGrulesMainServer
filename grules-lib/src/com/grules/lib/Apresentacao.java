@@ -2,7 +2,6 @@
 package com.grules.lib;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -15,8 +14,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @TableGenerator(name = "apresentacao_id", initialValue = 1, allocationSize = 1)
@@ -33,8 +30,8 @@ public class Apresentacao implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String resumo;
     
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dataHora;
+    
+    private String dataHora;
     
     @ManyToOne
     @JoinColumn(name = "evento_id", referencedColumnName = "evento_id")
@@ -87,11 +84,11 @@ public class Apresentacao implements Serializable {
         this.resumo = resumo;
     }
 
-    public Date getDataHora() {
+    public String getDataHora() {
         return dataHora;
     }
 
-    public void setDataHora(Date dataHora) {
+    public void setDataHora(String dataHora) {
         this.dataHora = dataHora;
     }
 

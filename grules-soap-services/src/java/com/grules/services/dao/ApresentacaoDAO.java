@@ -41,13 +41,13 @@ public class ApresentacaoDAO {
         return query.getResultList();
     }
 
-    public List<Date> loadDistinctDatasPorApresentacao(Integer eventoId) {
+    public List<String> loadDistinctDatasPorApresentacao(Integer eventoId) {
        TypedQuery qa = entityManager.createQuery("SELECT DISTINCT(a.dataHora) FROM Apresentacao a WHERE a.evento.id = :eventoId", Apresentacao.class);
         qa.setParameter("eventoId", eventoId);
         return qa.getResultList();
     }
 
-    public List<Apresentacao> loadByData(Date date, Integer eventoId) {
+    public List<Apresentacao> loadByData(String date, Integer eventoId) {
         TypedQuery query = entityManager.createQuery("SELECT ap FROM Apresentacao ap WHERE ap.dataHora = :date AND ap.evento.id = :eventoId", Apresentacao.class);
         query.setParameter("eventoId", eventoId);
         query.setParameter("date", date);
