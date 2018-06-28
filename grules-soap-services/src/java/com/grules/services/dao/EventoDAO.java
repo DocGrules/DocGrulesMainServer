@@ -64,12 +64,14 @@ public class EventoDAO {
         return query.getResultList();
     }
     
- //   public void registrarChamada(String semestre, String matricula) {
- //       
- //       Evento evento = eventoDAO.loadBySemestre(semestre);
- //       
- //       Aluno aluno = alunoDAO.loadByMatricula(matricula);
- //           
- //       
- //   }
+    public void registrarChamada(String semestre, String matricula) {
+        
+        Evento evento = eventoDAO.loadBySemestre(semestre);
+        
+        Aluno aluno = alunoDAO.loadByMatricula(matricula);
+        
+        evento.setAlunos((List<Aluno>) aluno);
+        
+        getEntityManager().merge(evento); 
+    }
 }
