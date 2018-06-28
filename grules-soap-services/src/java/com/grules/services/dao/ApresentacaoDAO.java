@@ -1,9 +1,7 @@
 package com.grules.services.dao;
 
 import com.grules.lib.Apresentacao;
-import com.grules.lib.RelatorioApresentacao;
 import com.grules.services.util.Util;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -43,15 +41,10 @@ public class ApresentacaoDAO {
         return query.getResultList();
     }
 
-    public List<RelatorioApresentacao> loadApresentacoesPorDia(Integer eventoId) {
-        List<RelatorioApresentacao> result = new ArrayList<>();
-        TypedQuery qa = entityManager.createQuery("SELECT DISTINCT(a.dataHora) FROM Apresentacao a WHERE a.evento.id = :eventoId", Apresentacao.class);
+    public List<Date> loadDistinctDatasPorApresentacao(Integer eventoId) {
+       TypedQuery qa = entityManager.createQuery("SELECT DISTINCT(a.dataHora) FROM Apresentacao a WHERE a.evento.id = :eventoId", Apresentacao.class);
         qa.setParameter("eventoId", eventoId);
-        List<Date> datas = qa.getResultList();
-        for (Date d : datas) {
-            result.add(new RelatorioApresentacao(d, loadByData(d, eventoId)));
-        }
-        return result;
+        return qa.getResultList();
     }
 
     public List<Apresentacao> loadByData(Date date, Integer eventoId) {
