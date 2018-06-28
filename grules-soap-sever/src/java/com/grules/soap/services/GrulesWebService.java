@@ -7,7 +7,6 @@ import com.grules.services.dao.AlunoDAO;
 import com.grules.services.dao.ApresentacaoDAO;
 import com.grules.services.dao.EventoDAO;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import javax.jws.WebService;
 import javax.inject.Inject;
@@ -90,6 +89,18 @@ public class GrulesWebService {
         return loadAll;
     }
     
+    @WebMethod(operationName = "loadApresentacaoPorDia")
+    public List<Apresentacao> loadApresentacaoPorDia(@WebParam(name = "data") Date data, @WebParam(name = "eventoId")Integer eventoId) {
+        List<Apresentacao> result = apresentacaoDAO.loadByData(data, eventoId);
+        return result;
+    }
+    
+    @WebMethod(operationName = "loadDistinctDatasPorApresentacao")
+    public List<Date> loadDistinctDatasPorApresentacao(@WebParam(name = "id") Integer id) {
+        List<Date> result = apresentacaoDAO.loadDistinctDatasPorApresentacao(id);
+        return result;
+    }
+    
     @WebMethod(operationName = "saveAluno")
     public void saveAluno(@WebParam(name = "aluno") Aluno aluno) {
         alunoDAO.save(aluno);
@@ -111,10 +122,6 @@ public class GrulesWebService {
         return find;
     }
 
-//    public HashMap<Date, List<Apresentacao>> loadApresentacaoPorDia() {
-//        return apresentacaoDAO.apresentacaoPorDia();
-//    }
-
     @WebMethod(operationName = "loadAllAluno")
     public List<Aluno> loadAllAluno() {
         List<Aluno> loadAll = alunoDAO.loadAll();
@@ -125,5 +132,25 @@ public class GrulesWebService {
     public boolean verificaMatricula(@WebParam(name = "matricula") String matricula){
         boolean verificar = alunoDAO.verificaMatricula(matricula);
         return verificar;
+    }
+    
+    @WebMethod(operationName = "registrarChamada")
+    public void registrarChamada(@WebParam(name = "semestre") String semestre, @WebParam(name = "matricula") String matricula){
+        eventoDAO.registrarChamada(semestre, matricula);
+    }
+    
+    @WebMethod(operationName = "removerChamada")
+    public void removerChamada(@WebParam(name = "semestre") String semestre, @WebParam(name = "matricula") String matricula){
+        eventoDAO.registrarChamada(semestre, matricula);
+    }
+    
+    @WebMethod(operationName = "registrarAlunoApresentacao")
+    public void registrarAlunoApresentacao(@WebParam(name = "idAluno") Integer idAluno, @WebParam(name = "idApresentacao") Integer idApresentacao){
+        apresentacaoDAO.registrarAlunosApresentacao(idAluno, idApresentacao);
+    }
+    
+    @WebMethod(operationName = "removerAlunoApresentacao")
+    public void removerAlunoApresentacao(@WebParam(name = "idAluno") Integer idAluno, @WebParam(name = "idApresentacao") Integer idApresentacao){
+        apresentacaoDAO.removerAlunosApresentacao(idAluno, idApresentacao);
     }
 }

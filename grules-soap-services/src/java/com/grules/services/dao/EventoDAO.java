@@ -67,11 +67,16 @@ public class EventoDAO {
     public void registrarChamada(String semestre, String matricula) {
         
         Evento evento = eventoDAO.loadBySemestre(semestre);
-        
         Aluno aluno = alunoDAO.loadByMatricula(matricula);
+        evento.getAlunos().add(aluno);
+        getEntityManager().merge(evento); 
+    }
+    
+    public void removerChamada (String semestre, String matricula) {
         
-        evento.setAlunos((List<Aluno>) aluno);
-        
+        Evento evento = eventoDAO.loadBySemestre(semestre);
+        Aluno aluno = alunoDAO.loadByMatricula(matricula);
+        evento.getAlunos().remove(aluno);
         getEntityManager().merge(evento); 
     }
 }
