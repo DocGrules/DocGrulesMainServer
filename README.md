@@ -1,5 +1,5 @@
 # Grules-Main-Server
-Servidor principal de aplicação, responsável pela manipulação de dados e acesso ao banco e exposição dos métodos para as outras aplicações (PHP,C# e JAVA).
+Servidor principal de aplicação, responsável pela manipulação de dados, acesso ao banco e exposição dos métodos para as outras aplicações (PHP,C# e JAVA).
 
 # grules-lib
 Projeto onde estão presentes todas as classes utilizadas no sistema (Aluno, Apresentação, Evento), bem como seus atributos e métodos get/set.
